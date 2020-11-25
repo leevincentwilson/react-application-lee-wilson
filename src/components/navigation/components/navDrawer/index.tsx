@@ -32,7 +32,7 @@ export const NavDrawer: FunctionComponent<NavDrawerProps> = ({
       <ListItem
         button
         className={classes.buttons}
-        onClick={() => handleOnClick('/blod')}
+        onClick={() => handleOnClick('/blog')}
       >
         <ListItemText primary="Blog" />
       </ListItem>

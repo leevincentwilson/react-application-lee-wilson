@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useContext } from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -8,11 +8,14 @@ import MenuIcon from '@material-ui/icons/Menu';
 import { Route } from 'react-router-dom';
 import { useStyles } from './style';
 import { navProps } from '../../types';
+import { AuthContext } from '../../../../global/auth/authProvider';
 
 export const NavBar: FunctionComponent<navProps> = ({
   toggleDrawer,
 }: navProps) => {
   const classes = useStyles();
+  const Auth = useContext(AuthContext);
+
   return (
     <AppBar position="static">
       <Toolbar>
@@ -26,10 +29,14 @@ export const NavBar: FunctionComponent<navProps> = ({
           <MenuIcon />
         </IconButton>
         <Typography variant="h6" className={classes.title}>
-          <Route path="/home">Home</Route>
-          <Route path="/blog">Blog</Route>
+          <Route path="/home">10UP Home</Route>
+          <Route path="/blog">10UP Blog</Route>
         </Typography>
-        <Button color="inherit">Login</Button>
+        {Auth ? (
+          <Button color="inherit" onClick={Auth.logout}>
+            LogOut
+          </Button>
+        ) : null}
       </Toolbar>
     </AppBar>
   );

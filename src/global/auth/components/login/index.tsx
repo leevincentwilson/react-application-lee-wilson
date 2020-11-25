@@ -31,7 +31,7 @@ export const Login = ({ login }: LoginProps) => {
         data-testid="fabButton_addToDo"
       >
         <Typography variant="h5" className={classes.title}>
-          Login
+          Login to 10UP
         </Typography>
         <form className={classes.form} noValidate autoComplete="off">
           <TextField
