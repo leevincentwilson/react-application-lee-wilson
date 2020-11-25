@@ -12,6 +12,7 @@ export type errorType = errorDataType & {
   id: string;
 };
 export type ErrorHandlingContextType = {
-  addError: (error: errorType) => void;
+  addError: (error: errorDataType) => void;
   deleteError: (id: string) => void;
+  clearErrors: () => void;
 };

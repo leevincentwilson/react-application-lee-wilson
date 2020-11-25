@@ -3,14 +3,24 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import Backdrop from '@material-ui/core/Backdrop';
+import Typography from '@material-ui/core/Typography';
 import { useStyles } from './styles';
+import { userCredentialsType } from '../../types';
 
-export const Login = () => {
+type LoginProps = {
+  login: (userCredentials: userCredentialsType) => void;
+};
+export const Login = ({ login }: LoginProps) => {
   const classes = useStyles();
-  const [userName, setUserName] = useState<string>('');
-  const [userPassword, setUserPassword] = useState<string>('');
+  const [username, setUsername] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
 
-  const handleLogin = () => {};
+  const handleLogin = () => {
+    login({
+      username,
+      password,
+    });
+  };
 
   return (
     <div className={classes.root}>
@@ -20,18 +30,21 @@ export const Login = () => {
         elevation={3}
         data-testid="fabButton_addToDo"
       >
+        <Typography variant="h5" className={classes.title}>
+          Login
+        </Typography>
         <form className={classes.form} noValidate autoComplete="off">
           <TextField
             label="User Name"
-            value={userName}
-            onChange={(e) => setUserName(e.target.value)}
-            data-testid="textField_userName"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            data-testid="textField_username"
           />
           <TextField
             label="Password"
-            value={userPassword}
+            value={password}
             type="password"
-            onChange={(e) => setUserPassword(e.target.value)}
+            onChange={(e) => setPassword(e.target.value)}
             data-testid="textField_userPassword"
           />
           <div className={classes.buttonContainer}>

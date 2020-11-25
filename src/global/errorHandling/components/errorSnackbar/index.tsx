@@ -18,8 +18,13 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
   },
   alert: {
+    margin: 8,
     display: 'flex',
     alignItems: 'center',
+  },
+  snackBar: {
+    display: 'flex',
+    flexDirection: 'column',
   },
 }));
 
@@ -39,7 +44,11 @@ export const ErrorSnackBar = ({
 
   return (
     <div className={classes.root}>
-      <Snackbar open={true} autoHideDuration={6000}>
+      <Snackbar
+        open={true}
+        autoHideDuration={3000}
+        className={classes.snackBar}
+      >
         <>
           {errors.map(({ id, title, severity }) => {
             return (

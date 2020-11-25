@@ -84,6 +84,7 @@
     "import/newline-after-import": 1,
     "@typescript-eslint/comma-spacing": 1,
     "@typescript-eslint/naming-convention": "off",
-    "no-debugger": 1
+    "no-debugger": 1,
+    "@typescript-eslint/space-before-function-paren": 1
   }
 }

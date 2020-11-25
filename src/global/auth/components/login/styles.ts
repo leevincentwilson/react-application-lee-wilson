@@ -15,13 +15,15 @@ export const useStyles = makeStyles(() =>
     },
     paper: {
       width: 300,
-      padding: 16,
+      padding: 32,
+    },
+    title: {
+      marginBottom: 24,
     },
     buttonContainer: {
-      marginTop: 16,
+      marginTop: 32,
       marginBottom: 8,
-      display: 'flex',
-      justifyContent: 'space-between',
+      width: '100%',
     },
     form: {
       display: 'flex',
