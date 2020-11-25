@@ -1,22 +1,18 @@
 import React from 'react';
-import './App.css';
+import { Redirect, Switch, Route } from 'react-router-dom';
+import { Navigation } from './components/navigation';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Navigation />
+      <Switch>
+        <Route path="/home">Home</Route>
+        <Route path="/blog">Blog</Route>
+        <Route>
+          <Redirect to="/home" />
+        </Route>
+      </Switch>
     </div>
   );
 }
