@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^4.11.1",
+    "@material-ui/icons": "^4.9.1",
+    "@material-ui/lab": "^4.0.0-alpha.56",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
@@ -10,10 +13,12 @@
     "@types/node": "^12.0.0",
     "@types/react": "^16.9.53",
     "@types/react-dom": "^16.9.8",
+    "axios": "^0.21.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-scripts": "4.0.1",
     "typescript": "^4.0.3",
+    "uuid": "^8.3.1",
     "web-vitals": "^0.2.4"
   },
   "scripts": {
@@ -22,8 +27,8 @@
     "eject": "react-scripts eject",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx src --color",
     "lintFix": "eslint --ext .js,.jsx,.ts,.tsx src --color --fix",
-    "format": "prettier --write .",
-    "build": "npm run format && npm run lintFix && npm run build"
+    "prettier": "prettier --write .",
+    "format": "npm run lintFix && npm run prettier"
   },
   "eslintConfig": {
     "extends": [
@@ -44,6 +49,7 @@
     ]
   },
   "devDependencies": {
+    "@types/uuid": "^8.3.0",
     "@typescript-eslint/eslint-plugin": "4.8.2",
     "@typescript-eslint/parser": "4.8.2",
     "babel-eslint": "10.1.0",
