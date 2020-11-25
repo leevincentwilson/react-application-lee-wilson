@@ -18,6 +18,7 @@ export const AuthContext = createContext<AuthProviderType | undefined>(
 type ProviderType = {
   children: React.ReactNode;
 };
+let timeout: undefined | ReturnType<typeof setTimeout>;
 
 export const AuthProvider = ({ children }: ProviderType) => {
   const errorHandling = useContext(ErrorHandlingContext);
@@ -30,12 +31,25 @@ export const AuthProvider = ({ children }: ProviderType) => {
     if (rawAuthData) {
       const authData: authCredentialsType = JSON.parse(rawAuthData);
       setAuthCredentials(authData);
+      handleTokenExpiration(authData.expires);
     }
   }, []);
 
   const logout = () => {
     sessionStorage.removeItem('auth');
     setAuthCredentials(undefined);
+  };
+
+  const handleTokenExpiration = (expirationDateTime: Date | undefined) => {
+    if (timeout) {
+      clearTimeout(timeout);
+    }
+    if (expirationDateTime) {
+      timeout = setTimeout(
+        logout,
+        expirationDateTime.getTime() - new Date().getTime()
+      );
+    }
   };
 
   const handleLogin = async ({ username, password }: userCredentialsType) => {
@@ -59,21 +73,15 @@ export const AuthProvider = ({ children }: ProviderType) => {
         });
       } else if (data) {
         const decodedJwt: JwtPayload = jwt_decode(data.token);
-        setAuthCredentials({
+        const authData = {
           ...data,
           expires: decodedJwt?.exp
             ? new Date(decodedJwt.exp * 1000)
             : undefined,
-        });
-        sessionStorage.setItem(
-          'auth',
-          JSON.stringify({
-            ...data,
-            expires: decodedJwt?.exp
-              ? new Date(decodedJwt.exp * 1000)
-              : undefined,
-          })
-        );
+        };
+        setAuthCredentials(authData);
+        sessionStorage.setItem('auth', JSON.stringify(authData));
+        handleTokenExpiration(authData.expires);
       }
     }
   };
