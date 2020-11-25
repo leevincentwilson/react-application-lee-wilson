@@ -55,7 +55,7 @@ export const AuthProvider = ({ children }: ProviderType) => {
       if (error) {
         errorHandling?.addError({
           severity: severityType.ERROR,
-          title: error.medssage,
+          title: error.message,
         });
       } else if (data) {
         const decodedJwt: JwtPayload = jwt_decode(data.token);
