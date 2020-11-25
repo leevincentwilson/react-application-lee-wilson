@@ -26,20 +26,6 @@ export const AuthProvider = ({ children }: ProviderType) => {
     authCredentialsType | undefined
   >(undefined);
 
-  useEffect(() => {
-    const rawAuthData = sessionStorage.getItem('auth');
-    if (rawAuthData) {
-      const authData: authCredentialsType = JSON.parse(rawAuthData);
-      setAuthCredentials(authData);
-      handleTokenExpiration(authData.expires);
-    }
-  }, []);
-
-  const logout = () => {
-    sessionStorage.removeItem('auth');
-    setAuthCredentials(undefined);
-  };
-
   const handleTokenExpiration = (expirationDateTime: Date | undefined) => {
     if (timeout) {
       clearTimeout(timeout);
@@ -47,9 +33,23 @@ export const AuthProvider = ({ children }: ProviderType) => {
     if (expirationDateTime) {
       timeout = setTimeout(
         logout,
-        expirationDateTime.getTime() - new Date().getTime()
+        new Date(expirationDateTime).getTime() - new Date().getTime()
       );
     }
+  };
+
+  useEffect(() => {
+    const rawAuthData = sessionStorage.getItem('auth');
+    if (rawAuthData) {
+      const authData: authCredentialsType = JSON.parse(rawAuthData);
+      setAuthCredentials(authData);
+      handleTokenExpiration(authData.expires);
+    }
+  }, [handleTokenExpiration]);
+
+  const logout = () => {
+    sessionStorage.removeItem('auth');
+    setAuthCredentials(undefined);
   };
 
   const handleLogin = async ({ username, password }: userCredentialsType) => {
@@ -79,6 +79,7 @@ export const AuthProvider = ({ children }: ProviderType) => {
             ? new Date(decodedJwt.exp * 1000)
             : undefined,
         };
+        console.log('authData', authData);
         setAuthCredentials(authData);
         sessionStorage.setItem('auth', JSON.stringify(authData));
         handleTokenExpiration(authData.expires);
