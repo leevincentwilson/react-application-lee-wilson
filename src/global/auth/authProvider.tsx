@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useMemo,
+} from 'react';
 import jwt_decode, { JwtPayload } from 'jwt-decode';
 import { Login } from './components/login';
 import { ErrorHandlingContext } from '../errorHandling/errorHandlingProvider';
@@ -26,17 +32,20 @@ export const AuthProvider = ({ children }: ProviderType) => {
   authCredentialsType | undefined
   >(undefined);
 
-  const handleTokenExpiration = (expirationDateTime: Date | undefined) => {
-    if (timeout) {
-      clearTimeout(timeout);
-    }
-    if (expirationDateTime) {
-      timeout = setTimeout(
-        logout,
-        new Date(expirationDateTime).getTime() - new Date().getTime(),
-      );
-    }
-  };
+  const handleTokenExpiration = useMemo(
+    () => (expirationDateTime: Date | undefined) => {
+      if (timeout) {
+        clearTimeout(timeout);
+      }
+      if (expirationDateTime) {
+        timeout = setTimeout(
+          logout,
+          new Date(expirationDateTime).getTime() - new Date().getTime(),
+        );
+      }
+    },
+    [],
+  );
 
   useEffect(() => {
     const rawAuthData = sessionStorage.getItem('auth');
@@ -45,7 +54,7 @@ export const AuthProvider = ({ children }: ProviderType) => {
       setAuthCredentials(authData);
       handleTokenExpiration(authData.expires);
     }
-  }, []);
+  }, [handleTokenExpiration]);
 
   const logout = () => {
     sessionStorage.removeItem('auth');

@@ -3,6 +3,7 @@ import { createStyles, makeStyles } from '@material-ui/core/styles';
 export const useStyles = makeStyles(() =>
   createStyles({
     root: {
+      backgroundColor: '#dedede',
       position: 'absolute',
       width: '100%',
       height: '100%',

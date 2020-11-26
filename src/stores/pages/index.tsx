@@ -20,21 +20,18 @@ export const PagesProvider = ({ children }: ProviderType) => {
   const [pages, setPages] = useState<wordPressDataType[]>([]);
   const errorHandling = useContext(ErrorHandlingContext);
 
-  const handleGetPages = async () => {
-    const { data, error } = await getPages();
-    if (error) {
-      errorHandling?.addError({
-        severity: severityType.ERROR,
-        title: error.message,
-      });
-    } else if (data) {
-      setPages(data);
-    }
-  };
-
   useEffect(() => {
-    handleGetPages();
-  }, []);
+    getPages().then(({ data, error }) => {
+      if (error) {
+        errorHandling?.addError({
+          severity: severityType.ERROR,
+          title: error.message,
+        });
+      } else if (data) {
+        setPages(data);
+      }
+    });
+  }, [errorHandling]);
 
   const context: PagesProviderType = {
     pages,

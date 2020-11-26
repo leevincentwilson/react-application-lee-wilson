@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
-import Backdrop from '@material-ui/core/Backdrop';
 import Typography from '@material-ui/core/Typography';
 import { useStyles } from './styles';
 import { userCredentialsType } from '../../types';
@@ -24,7 +23,6 @@ export const Login = ({ login }: LoginProps) => {
 
   return (
     <div className={classes.root}>
-      <Backdrop open data-testid="backdrop" />
       <Paper
         className={classes.paper}
         elevation={3}

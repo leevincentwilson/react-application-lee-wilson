@@ -20,21 +20,18 @@ export const BlogProvider = ({ children }: ProviderType) => {
   const [blog, setBlog] = useState<wordPressDataType[]>([]);
   const errorHandling = useContext(ErrorHandlingContext);
 
-  const handleGetBlog = async () => {
-    const { data, error } = await getBlog();
-    if (error) {
-      errorHandling?.addError({
-        severity: severityType.ERROR,
-        title: error.message,
-      });
-    } else if (data) {
-      setBlog(data);
-    }
-  };
-
   useEffect(() => {
-    handleGetBlog();
-  }, []);
+    getBlog().then(({ data, error }) => {
+      if (error) {
+        errorHandling?.addError({
+          severity: severityType.ERROR,
+          title: error.message,
+        });
+      } else if (data) {
+        setBlog(data);
+      }
+    });
+  }, [errorHandling]);
 
   const context: BlogProviderType = {
     blog,
