@@ -1,8 +1,8 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { getPages } from './endPoints';
+import { getPages } from '../../api/pages';
 import { severityType } from '../../global/errorHandling/types';
 import { ErrorHandlingContext } from '../../global/errorHandling/errorHandlingProvider';
-import { wordPressDataType } from '../../types/apiTypes';
+import { wordPressDataType } from '../../api/apiTypes';
 
 export type PagesProviderType = {
   pages: wordPressDataType[];

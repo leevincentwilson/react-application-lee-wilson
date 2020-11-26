@@ -1,8 +1,8 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { getBlog } from './endPoints';
+import { getBlog } from '../../api/blog';
 import { severityType } from '../../global/errorHandling/types';
 import { ErrorHandlingContext } from '../../global/errorHandling/errorHandlingProvider';
-import { wordPressDataType } from '../../types/apiTypes';
+import { wordPressDataType } from '../../api/apiTypes';
 
 export type BlogProviderType = {
   blog: wordPressDataType[];

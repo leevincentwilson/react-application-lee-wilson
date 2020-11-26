@@ -1,9 +1,9 @@
 import axios, { AxiosError } from 'axios';
-import { getBearerTokenFromSessionStorage } from '../../../global/auth/helpers';
+import { getBearerTokenFromSessionStorage } from '../../global/auth/helpers';
 import {
   wordPressApiReturnType,
   wordPressDataType,
-} from '../../../types/apiTypes';
+} from '../apiTypes';
 
 type responseType = {
   data: wordPressApiReturnType[];
@@ -13,10 +13,10 @@ export type getPagesReturnType = {
   error?: AxiosError;
 };
 
-export const getBlog = (): Promise<getPagesReturnType> => {
+export const getPages = (): Promise<getPagesReturnType> => {
   return new Promise<getPagesReturnType>((resolve) => {
     axios
-      .get('/wp-json/wp/v2/posts', {
+      .get('/wp-json/wp/v2/pages', {
         headers: {
           Authorization: `Bearer ${getBearerTokenFromSessionStorage()}`,
         },
