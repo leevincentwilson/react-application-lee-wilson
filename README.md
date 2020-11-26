@@ -1,3 +1,14 @@
+# To run local server 
+
+1. npm install
+2. npm run start
+3. navigate to http://localhost:3000/
+
+Username: 'jane'
+Password: '12345'
+
+
+
 # React Application Exercise
 
 Your task is to create a maintainable React application using modern JavaScript and framework(s). The application is a blog pulling content from the API listed below based on some simple HTML/CSS markup; there is also basic login/logout functionality. All the necessary HTML and CSS are provided inside the `provided` directory as well as any information you need to complete the exercise.
