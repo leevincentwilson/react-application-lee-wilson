@@ -86,6 +86,7 @@
     "@typescript-eslint/naming-convention": "off",
     "no-debugger": 1,
     "@typescript-eslint/space-before-function-paren": 1,
-    "react/self-closing-comp": 1
+    "react/self-closing-comp": 1,
+    "react/no-danger": "off"
   }
 }

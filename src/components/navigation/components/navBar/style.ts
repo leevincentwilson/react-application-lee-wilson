@@ -11,5 +11,5 @@ export const useStyles = makeStyles((theme: Theme) =>
     title: {
       flexGrow: 1,
     },
-  })
+  }),
 );

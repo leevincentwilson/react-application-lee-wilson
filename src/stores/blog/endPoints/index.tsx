@@ -13,10 +13,10 @@ export type getPagesReturnType = {
   error?: AxiosError;
 };
 
-export const getPages = (): Promise<getPagesReturnType> => {
+export const getBlog = (): Promise<getPagesReturnType> => {
   return new Promise<getPagesReturnType>((resolve) => {
     axios
-      .get('/wp-json/wp/v2/pages', {
+      .get('/wp-json/wp/v2/posts', {
         headers: {
           Authorization: `Bearer ${getBearerTokenFromSessionStorage()}`,
         },

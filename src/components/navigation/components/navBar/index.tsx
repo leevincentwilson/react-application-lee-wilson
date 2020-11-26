@@ -19,7 +19,7 @@ export const NavBar: FunctionComponent<navProps> = ({
 
   const pageData = useContext(PagesContext) || { pages: [] };
   return (
-    <AppBar position="static">
+    <AppBar position="fixed">
       <Toolbar>
         <IconButton
           edge="start"
@@ -32,7 +32,7 @@ export const NavBar: FunctionComponent<navProps> = ({
         </IconButton>
         {pageData.pages.map(({ id, slug, title }) => {
           return (
-            <Route path={`/pages/${slug}`} key={id}>
+            <Route path={`/page/${slug}`} key={id}>
               <Typography variant="h6" className={classes.title}>
                 {title}
               </Typography>

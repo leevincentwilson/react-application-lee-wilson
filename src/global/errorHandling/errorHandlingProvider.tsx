@@ -4,7 +4,7 @@ import { ErrorSnackBar } from './components/errorSnackbar';
 import { errorDataType, ErrorHandlingContextType, errorType } from './types';
 
 export const ErrorHandlingContext = createContext<
-  ErrorHandlingContextType | undefined
+ErrorHandlingContextType | undefined
 >(undefined);
 
 type ProviderType = {

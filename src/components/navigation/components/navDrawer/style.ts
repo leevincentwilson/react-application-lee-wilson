@@ -5,5 +5,5 @@ export const useStyles = makeStyles(() =>
     buttons: {
       width: 300,
     },
-  })
+  }),
 );

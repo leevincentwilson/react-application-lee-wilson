@@ -1,14 +1,14 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { getPages } from './endPoints';
+import { getBlog } from './endPoints';
 import { severityType } from '../../global/errorHandling/types';
 import { ErrorHandlingContext } from '../../global/errorHandling/errorHandlingProvider';
 import { wordPressDataType } from '../../types/apiTypes';
 
-export type PagesProviderType = {
-  pages: wordPressDataType[];
+export type BlogProviderType = {
+  blog: wordPressDataType[];
 };
 
-export const PagesContext = createContext<PagesProviderType | undefined>(
+export const BlogContext = createContext<BlogProviderType | undefined>(
   undefined,
 );
 
@@ -16,31 +16,31 @@ type ProviderType = {
   children: React.ReactNode;
 };
 
-export const PagesProvider = ({ children }: ProviderType) => {
-  const [pages, setPages] = useState<wordPressDataType[]>([]);
+export const BlogProvider = ({ children }: ProviderType) => {
+  const [blog, setBlog] = useState<wordPressDataType[]>([]);
   const errorHandling = useContext(ErrorHandlingContext);
 
-  const handleGetPages = async () => {
-    const { data, error } = await getPages();
+  const handleGetBlog = async () => {
+    const { data, error } = await getBlog();
     if (error) {
       errorHandling?.addError({
         severity: severityType.ERROR,
         title: error.message,
       });
     } else if (data) {
-      setPages(data);
+      setBlog(data);
     }
   };
 
   useEffect(() => {
-    handleGetPages();
+    handleGetBlog();
   }, []);
 
-  const context: PagesProviderType = {
-    pages,
+  const context: BlogProviderType = {
+    blog,
   };
 
   return (
-    <PagesContext.Provider value={context}>{children}</PagesContext.Provider>
+    <BlogContext.Provider value={context}>{children}</BlogContext.Provider>
   );
 };
