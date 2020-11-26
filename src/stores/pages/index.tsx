@@ -1,11 +1,10 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { authCredentialsType } from '../../global/auth/types';
-import { getPages } from './endPoints';
+import { getPages, pageDataType } from './endPoints';
 import { severityType } from '../../global/errorHandling/types';
 import { ErrorHandlingContext } from '../../global/errorHandling/errorHandlingProvider';
 
 export type PagesProviderType = {
-  removeToDo: (index: number) => void;
+  pages: pageDataType[];
 };
 
 export const PagesContext = createContext<PagesProviderType | undefined>(
@@ -17,11 +16,8 @@ type ProviderType = {
 };
 
 export const PagesProvider = ({ children }: ProviderType) => {
-  const [toDoItems, setToDoItems] = useState<string[]>([]);
+  const [pages, setPages] = useState<pageDataType[]>([]);
   const errorHandling = useContext(ErrorHandlingContext);
-  useEffect(() => {
-    handleGetPages();
-  }, []);
 
   const handleGetPages = async () => {
     const { data, error } = await getPages();
@@ -31,15 +27,17 @@ export const PagesProvider = ({ children }: ProviderType) => {
         severity: severityType.ERROR,
         title: error.message,
       });
+    } else if (data) {
+      setPages(data);
     }
   };
 
-  const removeToDo = (index: number) => {
-    toDoItems.splice(index, 1);
-    setToDoItems([...toDoItems]);
-  };
+  useEffect(() => {
+    handleGetPages();
+  }, []);
+
   const context: PagesProviderType = {
-    removeToDo,
+    pages,
   };
 
   return (

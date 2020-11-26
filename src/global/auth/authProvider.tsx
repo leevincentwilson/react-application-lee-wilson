@@ -39,13 +39,14 @@ export const AuthProvider = ({ children }: ProviderType) => {
   };
 
   useEffect(() => {
+    debugger;
     const rawAuthData = sessionStorage.getItem('auth');
     if (rawAuthData) {
       const authData: authCredentialsType = JSON.parse(rawAuthData);
       setAuthCredentials(authData);
       handleTokenExpiration(authData.expires);
     }
-  }, [handleTokenExpiration]);
+  }, []);
 
   const logout = () => {
     sessionStorage.removeItem('auth');
@@ -79,9 +80,8 @@ export const AuthProvider = ({ children }: ProviderType) => {
             ? new Date(decodedJwt.exp * 1000)
             : undefined,
         };
-        console.log('authData', authData);
-        setAuthCredentials(authData);
         sessionStorage.setItem('auth', JSON.stringify(authData));
+        setAuthCredentials(authData);
         handleTokenExpiration(authData.expires);
       }
     }

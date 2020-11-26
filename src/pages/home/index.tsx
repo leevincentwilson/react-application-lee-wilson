@@ -1,10 +1,8 @@
-import React from 'react';
-import { PagesProvider } from '../../stores/pages';
+import React, { useContext } from 'react';
+import { PagesContext, PagesProvider } from '../../stores/pages';
 
 export const Home = () => {
-  return (
-    <PagesProvider>
-      <div>Home</div>
-    </PagesProvider>
-  );
+  const pages = useContext(PagesContext);
+  debugger;
+  return <div>Home</div>;
 };

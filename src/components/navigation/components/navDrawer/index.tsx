@@ -1,10 +1,11 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useContext } from 'react';
 import Drawer from '@material-ui/core/Drawer';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import { useHistory } from 'react-router-dom';
 import { navProps } from '../../types';
 import { useStyles } from './style';
+import { PagesContext } from '../../../../stores/pages';
 
 type NavDrawerProps = navProps & {
   open: boolean;
@@ -15,6 +16,7 @@ export const NavDrawer: FunctionComponent<NavDrawerProps> = ({
 }: NavDrawerProps) => {
   const history = useHistory();
   const classes = useStyles();
+  const pageData = useContext(PagesContext) || { pages: [] };
   const handleOnClick = (route: string) => {
     history.push(route);
     toggleDrawer();
@@ -29,13 +31,18 @@ export const NavDrawer: FunctionComponent<NavDrawerProps> = ({
       >
         <ListItemText primary="Home" />
       </ListItem>
-      <ListItem
-        button
-        className={classes.buttons}
-        onClick={() => handleOnClick('/blog')}
-      >
-        <ListItemText primary="Blog" />
-      </ListItem>
+      {pageData.pages.map(({ id, slug, title }) => {
+        return (
+          <ListItem
+            key={id}
+            button
+            className={classes.buttons}
+            onClick={() => handleOnClick(slug)}
+          >
+            <ListItemText primary={title} />
+          </ListItem>
+        );
+      })}
     </Drawer>
   );
 };
