@@ -18,7 +18,7 @@ export type AuthProviderType = {
 };
 
 export const AuthContext = createContext<AuthProviderType | undefined>(
-  undefined
+  undefined,
 );
 
 type ProviderType = {
@@ -29,10 +29,10 @@ let timeout: undefined | ReturnType<typeof setTimeout>;
 export const AuthProvider = ({ children }: ProviderType) => {
   const errorHandling = useContext(ErrorHandlingContext);
   const [fetchingCredentials, setFetchingCredentials] = useState<boolean>(
-    false
+    false,
   );
   const [authCredentials, setAuthCredentials] = useState<
-    authCredentialsType | undefined
+  authCredentialsType | undefined
   >(undefined);
 
   const handleTokenExpiration = useMemo(
@@ -43,11 +43,11 @@ export const AuthProvider = ({ children }: ProviderType) => {
       if (expirationDateTime) {
         timeout = setTimeout(
           logout,
-          new Date(expirationDateTime).getTime() - new Date().getTime()
+          new Date(expirationDateTime).getTime() - new Date().getTime(),
         );
       }
     },
-    []
+    [],
   );
 
   useEffect(() => {

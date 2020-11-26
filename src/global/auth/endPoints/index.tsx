@@ -21,7 +21,7 @@ type responseType = {
 };
 
 export const login = (
-  userCredentials: userCredentialsType
+  userCredentials: userCredentialsType,
 ): Promise<loginReturnType> => {
   return new Promise<loginReturnType>((resolve) => {
     axios

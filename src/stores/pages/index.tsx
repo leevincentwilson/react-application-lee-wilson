@@ -9,7 +9,7 @@ export type PagesProviderType = {
 };
 
 export const PagesContext = createContext<PagesProviderType | undefined>(
-  undefined
+  undefined,
 );
 
 type ProviderType = {
