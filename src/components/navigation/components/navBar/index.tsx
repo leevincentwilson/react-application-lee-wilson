@@ -9,6 +9,7 @@ import { Route } from 'react-router-dom';
 import { useStyles } from './style';
 import { navProps } from '../../types';
 import { AuthContext } from '../../../../global/auth/authProvider';
+import { PagesContext } from '../../../../stores/pages';
 
 export const NavBar: FunctionComponent<navProps> = ({
   toggleDrawer,
@@ -16,6 +17,7 @@ export const NavBar: FunctionComponent<navProps> = ({
   const classes = useStyles();
   const Auth = useContext(AuthContext);
 
+  const pageData = useContext(PagesContext) || { pages: [] };
   return (
     <AppBar position="static">
       <Toolbar>
@@ -28,8 +30,16 @@ export const NavBar: FunctionComponent<navProps> = ({
         >
           <MenuIcon />
         </IconButton>
+        {pageData.pages.map(({ id, slug, title }) => {
+          return (
+            <Route path={`/pages/${slug}`} key={id}>
+              <Typography variant="h6" className={classes.title}>
+                {title}
+              </Typography>
+            </Route>
+          );
+        })}
         <Typography variant="h6" className={classes.title}>
-          <Route path="/home">10UP Home</Route>
           <Route path="/blog">10UP Blog</Route>
         </Typography>
         {Auth ? (

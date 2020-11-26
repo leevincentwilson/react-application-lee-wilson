@@ -27,9 +27,9 @@ export const NavDrawer: FunctionComponent<NavDrawerProps> = ({
       <ListItem
         button
         className={classes.buttons}
-        onClick={() => handleOnClick('/home')}
+        onClick={() => handleOnClick('/blog')}
       >
-        <ListItemText primary="Home" />
+        <ListItemText primary="Blog" />
       </ListItem>
       {pageData.pages.map(({ id, slug, title }) => {
         return (
@@ -37,7 +37,7 @@ export const NavDrawer: FunctionComponent<NavDrawerProps> = ({
             key={id}
             button
             className={classes.buttons}
-            onClick={() => handleOnClick(slug)}
+            onClick={() => handleOnClick(`/page/${slug}`)}
           >
             <ListItemText primary={title} />
           </ListItem>

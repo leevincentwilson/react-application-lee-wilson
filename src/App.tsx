@@ -12,9 +12,14 @@ function App() {
       <div>
         <Navigation />
         <Switch>
-          <Pages />
+          <Route path={'/page/*'}>
+            <Pages />
+          </Route>
           <Route path="/blog">Blog</Route>
-          <Redirect to="/blog" />
+          <Route exact path="/">
+            <Redirect to="/blog" />
+          </Route>
+          <div>404</div>
         </Switch>
       </div>
     </PagesProvider>
