@@ -28,6 +28,9 @@ let timeout: undefined | ReturnType<typeof setTimeout>;
 
 export const AuthProvider = ({ children }: ProviderType) => {
   const errorHandling = useContext(ErrorHandlingContext);
+  const [fetchingCredentials, setFetchingCredentials] = useState<boolean>(
+    false
+  );
   const [authCredentials, setAuthCredentials] = useState<
     authCredentialsType | undefined
   >(undefined);
@@ -74,7 +77,9 @@ export const AuthProvider = ({ children }: ProviderType) => {
       });
     } else {
       errorHandling?.clearErrors();
+      setFetchingCredentials(true);
       const { data, error } = await login({ username, password });
+      setFetchingCredentials(false);
       if (error) {
         errorHandling?.addError({
           severity: severityType.ERROR,
@@ -96,7 +101,9 @@ export const AuthProvider = ({ children }: ProviderType) => {
   };
 
   if (!authCredentials?.expires || authCredentials?.expires <= new Date()) {
-    return <Login login={handleLogin} />;
+    return (
+      <Login login={handleLogin} fetchingCredentials={fetchingCredentials} />
+    );
   }
 
   return (

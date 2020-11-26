@@ -6,11 +6,13 @@ import { wordPressDataType } from '../../types/apiTypes';
 
 export type BlogProviderType = {
   blog: wordPressDataType[];
+  fetching: boolean;
 };
 
-export const BlogContext = createContext<BlogProviderType | undefined>(
-  undefined
-);
+export const BlogContext = createContext<BlogProviderType>({
+  blog: [],
+  fetching: true,
+});
 
 type ProviderType = {
   children: React.ReactNode;
@@ -18,6 +20,7 @@ type ProviderType = {
 
 export const BlogProvider = ({ children }: ProviderType) => {
   const [blog, setBlog] = useState<wordPressDataType[]>([]);
+  const [fetching, setFetching] = useState<boolean>(true);
   const errorHandling = useContext(ErrorHandlingContext);
 
   useEffect(() => {
@@ -28,6 +31,7 @@ export const BlogProvider = ({ children }: ProviderType) => {
           title: error.message,
         });
       } else if (data) {
+        setFetching(false);
         setBlog(data);
       }
     });
@@ -35,6 +39,7 @@ export const BlogProvider = ({ children }: ProviderType) => {
 
   const context: BlogProviderType = {
     blog,
+    fetching,
   };
 
   return (

@@ -21,7 +21,7 @@ function App() {
           }}
         >
           <Navigation />
-          <div style={{ overflow: 'auto' }}>
+          <div style={{ overflow: 'auto', flex: 1 }}>
             <Switch>
               <Route path={'/page/*'}>
                 <Pages />

@@ -3,13 +3,15 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { useStyles } from './styles';
 import { userCredentialsType } from '../../types';
 
 type LoginProps = {
   login: (userCredentials: userCredentialsType) => void;
+  fetchingCredentials: boolean;
 };
-export const Login = ({ login }: LoginProps) => {
+export const Login = ({ login, fetchingCredentials }: LoginProps) => {
   const classes = useStyles();
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -51,8 +53,13 @@ export const Login = ({ login }: LoginProps) => {
               color="primary"
               onClick={handleLogin}
               data-testid="button_add"
+              disabled={fetchingCredentials}
             >
-              Login
+              {fetchingCredentials ? (
+                <CircularProgress color="inherit" size={20} />
+              ) : (
+                'SignIn'
+              )}
             </Button>
           </div>
         </form>
