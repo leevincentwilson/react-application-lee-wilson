@@ -9,7 +9,7 @@ export type BlogProviderType = {
 };
 
 export const BlogContext = createContext<BlogProviderType | undefined>(
-  undefined,
+  undefined
 );
 
 type ProviderType = {

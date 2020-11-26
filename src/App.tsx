@@ -11,9 +11,17 @@ function App() {
   return (
     <PagesProvider>
       <BlogProvider>
-        <div>
+        <div
+          style={{
+            position: 'absolute',
+            height: '100%',
+            width: '100%',
+            display: 'flex',
+            flexDirection: 'column',
+          }}
+        >
           <Navigation />
-          <div style={{ marginTop: 64 }}>
+          <div style={{ overflow: 'auto' }}>
             <Switch>
               <Route path={'/page/*'}>
                 <Pages />

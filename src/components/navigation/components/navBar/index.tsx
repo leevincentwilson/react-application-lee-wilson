@@ -19,7 +19,7 @@ export const NavBar: FunctionComponent<navProps> = ({
 
   const pageData = useContext(PagesContext) || { pages: [] };
   return (
-    <AppBar position="fixed">
+    <AppBar position="static">
       <Toolbar>
         <IconButton
           edge="start"
